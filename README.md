@@ -1,2 +1,3 @@
-# restaurant-page
-Web game for The Odin Project
+# Restaurant Page
+
+Restaurant website for The Odin Project
