@@ -10,7 +10,7 @@
     "server": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "ChiefWoods",
   "license": "ISC",
   "devDependencies": {
     "css-loader": "^6.7.3",
