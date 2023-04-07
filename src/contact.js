@@ -1,4 +1,7 @@
-import { default as createSpan, createImg } from './index.js';
+import { createSpan, createImg } from './index.js';
+import email from './icons/email-outline.svg';
+import phone from './icons/phone.svg';
+import map from './icons/map-marker.svg';
 
 export function createContact() {
   const main = document.createElement('main');
@@ -50,20 +53,20 @@ function createInfo() {
   const div = document.createElement('div');
   div.classList.add('container-info');
 
-  const img1 = createImg("icons/email-outline.svg", "Email");
+  const img1 = createImg(email, "Email");
 
   const span1 = createSpan('gourmetbbqgrill@gmail.com');
 
-  const img2 = createImg("icons/phone.svg", "Phone");
+  const img2 = createImg(phone, "Phone");
 
   const span2 = createSpan('+6911111420');
 
-  const img3 = createImg("icons/map-marker.svg", "Location");
+  const img3 = createImg(map, "Location");
 
   const span3 = createSpan(
-    `900 E 11th St,
-    Austin, TX 78702,
-    United States`
+    '900 E 11th St,<br>' +
+    'Austin, TX 78702,<br>' +
+    'United States'
   );
 
   div.append(img1, span1, img2, span2, img3, span3);

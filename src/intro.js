@@ -1,4 +1,4 @@
-import { default as createSpan } from './index.js';
+import { createSpan } from './index.js';
 
 export function createIntro() {
   const main = document.createElement('main');
@@ -13,7 +13,7 @@ export function createIntro() {
   const figcaption = document.createElement('figcaption');
   figcaption.textContent = "- Wolfgang Duck";
 
-  const span = createSpan("Neighbourhood friendly BBQ place, smoking since 2012. We put so much love into our food, that we'd only open three days a week. Our meats are so popular, we literally don't even have a closing time. That's how legendary they are.");
+  const span = createSpan("Neighbourhood friendly BBQ place, smoking since 2012. We take pride in serving one of the best barbecue meats in Austin, rated by our legion of fanatics. Be sure to queue up extra early to not miss out on our legendary offerings!");
 
   section.append(blockquote, figcaption, span);
   main.appendChild(section);

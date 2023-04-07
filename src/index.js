@@ -2,16 +2,18 @@ import './styles.css';
 import { createIntro } from './intro.js';
 import { createMenu } from './menu.js';
 import { createContact } from './contact.js';
+import logo from './images/logo.png';
+import github from './icons/github.svg';
 
-export default function createSpan(text) {
+export function createSpan(text) {
   const span = document.createElement('span');
-  span.textContent = text;
+  span.innerHTML = text;
 
   return span;
 }
 
 export function createImg(src, alt) {
-  const img = document.createElement('img');
+  const img = new Image();
   img.src = src;
   img.alt = alt;
 
@@ -33,18 +35,11 @@ function loadMain(main) {
 
 function createHeader() {
   const header = document.createElement('header');
-  header.append(createLogo(), createNav());
+  const headerLogo = createImg(logo, 'Gourmet BBQ Grill');
+  headerLogo.classList.add('logo');
+  header.append(headerLogo, createNav());
 
   return header;
-}
-
-function createLogo() {
-  const logo = document.createElement('img');
-  logo.src = "images/logo.png";
-  logo.classList.add('logo');
-  logo.alt = "Gourmet BBQ Grill";
-
-  return logo;
 }
 
 function createNav() {
@@ -75,7 +70,7 @@ function createFooter() {
   a.href = 'https://github.com/ChiefWoods/restaurant-page';
   a.target = '_blank';
 
-  const img = createImg('icons/github.svg', 'GitHub');
+  const img = createImg(github, 'GitHub');
   img.classList.add('github-icon');
 
   a.appendChild(img);
