@@ -46,7 +46,7 @@ function createNav() {
   const nav = document.createElement('nav');
   const ul = document.createElement('ul');
 
-  for (let i of ['HOME', 'MENU', 'CONTACT']) {
+  for (const i of ['HOME', 'MENU', 'CONTACT']) {
     const li = document.createElement('li');
     li.classList.add('nav-link');
     li.textContent = i;
@@ -83,7 +83,7 @@ function createFooter() {
 function setSelected(ele) {
   const links = document.querySelectorAll('.nav-link')
   links.forEach(link => {
-    if (link != ele) {
+    if (link !== ele) {
       link.classList.remove('selected');
     }
   })

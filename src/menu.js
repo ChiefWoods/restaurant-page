@@ -55,7 +55,7 @@ export function createMenu() {
 }
 
 function createMenuGroup(title) {
-  let itemArr = [];
+  const itemArr = [];
   const group = title.toLowerCase();
 
   switch (group) {
@@ -75,7 +75,7 @@ function createMenuGroup(title) {
       var imageGroup = drinksImages;
   }
 
-  for (let item in menu[group]) {
+  for (const item in menu[group]) {
     itemArr.push(createMenuItem(imageGroup[`${item.replace(/ /g, '_').toLowerCase()}.png`], item, menu[group][item]))
   }
 
@@ -117,7 +117,7 @@ function createMenuItem(src, name, desc) {
 }
 
 function importAll(r) {
-  let images = {};
+  const images = {};
   r.keys().map(item => {
     images[item.replace('./', '')] = r(item);
   });
