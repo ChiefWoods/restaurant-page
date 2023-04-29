@@ -1,51 +1,42 @@
+@font-face {
+  font-family: Grobold;
+  src: url(fonts/grobold/GROBOLD.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: Oswald;
+  src: url(fonts/Oswald/Oswald-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: Delicious-Handrawn;
+  src: url(fonts/Delicious_Handrawn/DeliciousHandrawn-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: Bree-Serif;
+  src: url(fonts/Bree_Serif/BreeSerif-Regular.ttf) format('truetype');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
+  font-size: 62.5%;
+  --github-black: #0D1117;
   --background-yellow-light: #F5E7A6;
   --background-yellow-dark: #f7cc3e;
   --logo-red: #C74040;
 }
 
-@font-face {
-  font-family: Grobold;
-  src: url(fonts/grobold/GROBOLD.ttf) format("truetype");
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: Oswald;
-  src: url(fonts/Oswald/Oswald-Regular.ttf) format("truetype");
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: Delicious-Handrawn;
-  src: url(fonts/Delicious_Handrawn/DeliciousHandrawn-Regular.ttf) format("truetype");
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: Bree-Serif;
-  src: url(fonts/Bree_Serif/BreeSerif-Regular.ttf) format("truetype");
-  font-weight: normal;
-}
-
-:root {
-  overflow-x: hidden;
-}
-
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-}
-
-body {
-  overflow-x: hidden;
-}
-
 #content {
-  min-height: 100vh;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
+  min-height: 100vh;
+  min-width: calc(100vw - (100vw - 100%));
   background-image: url(images/platter.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -295,25 +286,19 @@ iframe {
 /* Footer */
 
 footer {
-  height: 55px;
-  width: 100vw;
   display: flex;
   align-items: center;
-  background-color: #0D1117;
+  background-color: var(--github-black);
+  padding: 12px 40px;
 }
 
 .made-by {
-  color: white;
-  font-size: 15px;
+  font-size: 12px;
   font-family: cursive;
+  color: white;
   margin: 0 auto;
 }
 
-.github-link {
-  position: relative;
-  right: 37.5px;
-}
-
 .github-icon {
-  height: 27.5px;
+  height: 25px;
 }

@@ -63,7 +63,7 @@ function createFooter() {
 
   const span = document.createElement('span');
   span.classList.add('made-by');
-  span.textContent = 'Made by ChiefWoods';
+  span.textContent = `Copyright @ ${new Date().getFullYear()} ChiefWoods`;
 
   const a = document.createElement('a');
   a.classList.add('github-link');
