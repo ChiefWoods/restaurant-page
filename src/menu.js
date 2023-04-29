@@ -30,7 +30,7 @@ const menu = {
   },
   drinks: {
     'Peach Iced Tea': 'Black tea infused with peaches, served refreshingly.',
-    'Lemonade': 'Juice of lemons, sweetened to your liking.'
+    'Lemonade': 'Life gave us lemons, so we made sweet lemonade.'
   }
 }
 
@@ -41,13 +41,11 @@ export function createMenu() {
   const section = document.createElement('section');
   section.classList.add('container-menu');
 
-  section.append(
-    createMenuGroup('APPETIZERS'),
-    createMenuGroup('MEATS'),
-    createMenuGroup('SIDES'),
-    createMenuGroup('DESSERTS'),
-    createMenuGroup('DRINKS')
-  )
+  const groupArr = ['APPETIZERS', 'MEATS', 'SIDES', 'DESSERTS', 'DRINKS'];
+
+  for (const group of groupArr) {
+    section.appendChild(createMenuGroup(group));
+  }
 
   main.appendChild(section);
 
@@ -57,26 +55,27 @@ export function createMenu() {
 function createMenuGroup(title) {
   const itemArr = [];
   const group = title.toLowerCase();
+  let imageGroup;
 
   switch (group) {
     case 'appetizers':
-      var imageGroup = appetizersImages;
+      imageGroup = appetizersImages;
       break;
     case 'meats':
-      var imageGroup = meatsImages;
+      imageGroup = meatsImages;
       break;
     case 'sides':
-      var imageGroup = sidesImages;
+      imageGroup = sidesImages;
       break;
     case 'desserts':
-      var imageGroup = dessertsImages;
+      imageGroup = dessertsImages;
       break;
     case 'drinks':
-      var imageGroup = drinksImages;
+      imageGroup = drinksImages;
   }
 
   for (const item in menu[group]) {
-    itemArr.push(createMenuItem(imageGroup[`${item.replace(/ /g, '_').toLowerCase()}.png`], item, menu[group][item]))
+    itemArr.push(createMenuItem(imageGroup[`${item.replace(/ /g, '_').toLowerCase()}.png`], item, menu[group][item]));
   }
 
   const div = document.createElement('div');
@@ -118,7 +117,7 @@ function createMenuItem(src, name, desc) {
 
 function importAll(r) {
   const images = {};
-  r.keys().map(item => {
+  r.keys().forEach(item => {
     images[item.replace('./', '')] = r(item);
   });
   return images;

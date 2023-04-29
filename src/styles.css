@@ -62,8 +62,9 @@ main {
 header {
   display: flex;
   background-color: var(--background-yellow-light);
-  padding-inline: 15%;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 25%;
+  padding: 15px 50px;
 }
 
 .header-link {
@@ -73,7 +74,6 @@ header {
 #logo {
   width: 200px;
   cursor: pointer;
-  padding-block: 15px;
 }
 
 header > nav {
@@ -82,7 +82,7 @@ header > nav {
 
 header > nav > ul {
   display: flex;
-  gap: 20px;
+  gap: 50px;
   align-items: center;
 }
 
@@ -93,7 +93,6 @@ header > nav > ul > li {
   font-size: 2.2rem;
   -webkit-text-stroke: 0.9px white;
   text-shadow: -2.5px 2.5px 0 black;
-  padding-inline: 20px;
 }
 
 header > nav > ul > li:hover {
@@ -107,35 +106,27 @@ header > nav > ul > li:hover {
   -webkit-text-stroke: 0.9px var(--logo-red);
 }
 
-/* Main */
-
-.background-main {
-  top: 0px;
-  z-index: -1;
-  width: 100vw;
-  max-height: 100vh;
-}
-
 /* Intro */
 
 .intro {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .container-intro {
   display: flex;
   flex-direction: column;
   background-color: white;
-  width: max(550px, 40vw);
-  padding: 70px 50px;
-  margin-top: 90vh;
-  margin-block: 90vh 15vh;
+  width: 45%;
+  min-width: 450px;
+  padding: 70px 55px;
+  margin: 50px 0;
 }
 
 .container-intro > blockquote {
   font-family: Oswald, sans-serif;
-  font-size: 3.8rem;
+  font-size: 4rem;
   color: orange;
 }
 
@@ -144,6 +135,7 @@ header > nav > ul > li:hover {
   font-family: Delicious-Handrawn, cursive;
   font-size: 2.5rem;
   color: grey;
+  margin: 15px 15px 0 0;
 }
 
 .container-intro > span {
@@ -165,7 +157,8 @@ header > nav > ul > li:hover {
   display: flex;
   flex-direction: column;
   background-color: white;
-  width: max(500px, 70vw);
+  width: 70vw;
+  min-width: 450px;
   padding: 70px 50px;
   margin-block: 50px;
   gap: 50px;
@@ -186,14 +179,14 @@ header > nav > ul > li:hover {
 
 .menu-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(335px, 1fr));
   gap: 30px 60px;
 }
 
 .menu-list > li {
   list-style: none;
   display: flex;
-  gap: 25px;
+  gap: 30px;
 }
 
 .menu-list > li > img {
@@ -250,16 +243,21 @@ header > nav > ul > li:hover {
 
 hr {
   border-top: 3px solid orange;
-  width: 70%;
+  width: 75%;
   margin-block: 15px;
 }
 
 .container-opening {
   display: flex;
-  gap: 15px;
+  gap: 40px;
 }
 
-.container-opening > span {
+.container-opening > * {
+  display: flex;
+  gap: 20px;
+}
+
+.container-opening span {
   font-family: Delicious-Handrawn, cursive;
   font-size: 3rem;
   color: rgb(120, 120, 120);
@@ -317,4 +315,65 @@ footer {
 
 .github-icon {
   height: 25px;
+}
+
+@media (max-width: 992px) {
+  html {
+    font-size: 67.5%;
+  }
+
+  header {
+    gap: 9%;
+  }
+
+  .container-intro {
+    width: 70%;
+  }
+
+  .container-opening {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .info {
+    flex-direction: column;
+  }
+
+  .container-info {
+    column-gap: 25px;
+  }
+
+  .container-info > img {
+    justify-self: flex-end;
+  }
+
+  iframe {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 72.5%;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  header > nav {
+    width: 100%;
+  }
+
+  header > nav > ul {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .container-intro, .container-menu, .container-contact {
+    width: 100%;
+  }
 }
