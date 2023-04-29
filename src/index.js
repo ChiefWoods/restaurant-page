@@ -36,7 +36,8 @@ function loadMain(main) {
 function createHeader() {
   const header = document.createElement('header');
   const headerLogo = createImg(logo, 'Gourmet BBQ Grill');
-  headerLogo.classList.add('logo');
+  headerLogo.className = 'header-link';
+  headerLogo.id = 'logo';
   header.append(headerLogo, createNav());
 
   return header;
@@ -48,7 +49,8 @@ function createNav() {
 
   for (const i of ['HOME', 'MENU', 'CONTACT']) {
     const li = document.createElement('li');
-    li.classList.add('nav-link');
+    li.className = 'header-link';
+    li.id = `${i.toLowerCase()}`;
     li.textContent = i;
     ul.appendChild(li);
   }
@@ -80,38 +82,30 @@ function createFooter() {
   return footer;
 }
 
-function setSelected(ele) {
-  const links = document.querySelectorAll('.nav-link')
-  links.forEach(link => {
-    if (link !== ele) {
-      link.classList.remove('selected');
-    }
+const content = document.querySelector('#content');
+content.append(createHeader(), createIntro(), createFooter());
+
+const home = document.querySelector('#home');
+home.classList.add('selected');
+
+const headerLinks = document.querySelectorAll('.header-link');
+
+headerLinks.forEach(link => link.addEventListener('click', () => {
+  headerLinks.forEach(link => {
+    link.classList.remove('selected');
   })
-
-  ele.classList.add('selected');
-}
-
-function initialize() {
-  const content = document.querySelector('#content');
-  content.append(createHeader(), createIntro(), createFooter());
-  setSelected(document.querySelector('.nav-link'));
-}
-
-initialize();
-
-const links = document.querySelectorAll('.nav-link')
-links.forEach(link => link.addEventListener('click', () => {
-  if (!link.classList.contains('selected')) {
-    setSelected(link);
-  }
-  switch (link.textContent) {
-    case 'HOME':
+  switch (link.id) {
+    case 'logo':
+    case 'home':
       loadMain(createIntro());
+      home.classList.add('selected');
       break;
-    case 'MENU':
+    case 'menu':
       loadMain(createMenu());
+      link.classList.add('selected');
       break;
-    case 'CONTACT':
+    case 'contact':
       loadMain(createContact());
+      link.classList.add('selected');
   }
 }))

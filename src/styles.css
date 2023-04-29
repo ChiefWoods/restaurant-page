@@ -18,6 +18,16 @@
   src: url(fonts/Bree_Serif/BreeSerif-Regular.ttf) format('truetype');
 }
 
+@keyframes shake {
+  0% {
+    transform: rotate(-8deg);
+  }
+
+  100% {
+    transform: rotate(8deg);
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -56,7 +66,11 @@ header {
   justify-content: space-between;
 }
 
-.logo {
+.header-link {
+  cursor: pointer;
+}
+
+#logo {
   width: 200px;
   cursor: pointer;
   padding-block: 15px;
@@ -74,19 +88,21 @@ header > nav > ul {
 
 header > nav > ul > li {
   list-style: none;
-}
-
-.nav-link {
-  cursor: pointer;
   font-family: Grobold, sans-serif;
   color: var(--logo-red);
-  font-size: 22px;
+  font-size: 2.2rem;
   -webkit-text-stroke: 0.9px white;
   text-shadow: -2.5px 2.5px 0 black;
   padding-inline: 20px;
 }
 
-li.selected {
+header > nav > ul > li:hover {
+  scale: 1.1;
+  transform: rotate(8deg);
+  animation: shake 0.5s steps(2, jump-none);
+}
+
+.selected {
   color: white;
   -webkit-text-stroke: 0.9px var(--logo-red);
 }
@@ -119,21 +135,21 @@ li.selected {
 
 .container-intro > blockquote {
   font-family: Oswald, sans-serif;
-  font-size: 38px;
+  font-size: 3.8rem;
   color: orange;
 }
 
 .container-intro > figcaption {
   align-self: end;
   font-family: Delicious-Handrawn, cursive;
-  font-size: 25px;
+  font-size: 2.5rem;
   color: grey;
 }
 
 .container-intro > span {
   margin-top: 70px;
   font-family: Bree-Serif, serif;
-  font-size: 22px;
+  font-size: 2.2rem;
   text-align: justify;
   color: var(--background-yellow-dark);
 }
@@ -163,14 +179,14 @@ li.selected {
 
 .menu-group > h1 {
   font-family: Oswald, sans-serif;
-  font-size: 35px;
+  font-size: 3.5rem;
   color: orange;
   letter-spacing: 1px;
 }
 
 .menu-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr) );
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 30px 60px;
 }
 
@@ -193,13 +209,13 @@ li.selected {
 
 .item-text > h2 {
   font-family: Oswald, sans-serif;
-  font-size: 22px;
+  font-size: 2.2rem;
   color: var(--logo-red);
 }
 
 .item-text > p {
   font-family: Bree-Serif, serif;
-  font-size: 18px;
+  font-size: 1.8rem;
   color: rgb(120, 120, 120);
 }
 
@@ -227,7 +243,7 @@ li.selected {
 
 .opening > h1 {
   font-family: Oswald, sans-serif;
-  font-size: 45px;
+  font-size: 4.5rem;
   color: orange;
   letter-spacing: 1.2px;
 }
@@ -245,13 +261,13 @@ hr {
 
 .container-opening > span {
   font-family: Delicious-Handrawn, cursive;
-  font-size: 30px;
+  font-size: 3rem;
   color: rgb(120, 120, 120);
 }
 
 span.time {
   color: var(--logo-red);
-  font-size: 35px;
+  font-size: 3.5rem;
 }
 
 .info {
@@ -273,7 +289,7 @@ span.time {
 
 .container-info > span {
   font-family: Bree-Serif, serif;
-  font-size: 18px;
+  font-size: 1.8rem;
   color: orange;
 }
 
