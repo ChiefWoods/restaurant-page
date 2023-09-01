@@ -106,15 +106,15 @@ header > nav > ul > li:hover {
   -webkit-text-stroke: 0.9px var(--logo-red);
 }
 
-/* Intro */
+/* home */
 
-.intro {
+.home {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.container-intro {
+.container-home {
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -124,13 +124,13 @@ header > nav > ul > li:hover {
   margin: 50px 0;
 }
 
-.container-intro > blockquote {
+.container-home > blockquote {
   font-family: Oswald, sans-serif;
   font-size: 4rem;
   color: orange;
 }
 
-.container-intro > figcaption {
+.container-home > figcaption {
   align-self: end;
   font-family: Delicious-Handrawn, cursive;
   font-size: 2.5rem;
@@ -138,7 +138,7 @@ header > nav > ul > li:hover {
   margin: 15px 15px 0 0;
 }
 
-.container-intro > span {
+.container-home > span {
   margin-top: 70px;
   font-family: Bree-Serif, serif;
   font-size: 2.2rem;
@@ -326,7 +326,7 @@ footer {
     gap: 9%;
   }
 
-  .container-intro {
+  .container-home {
     width: 70%;
   }
 
@@ -373,7 +373,7 @@ footer {
     justify-content: space-between;
   }
 
-  .container-intro, .container-menu, .container-contact {
+  .container-home, .container-menu, .container-contact {
     width: 100%;
   }
 }

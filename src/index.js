@@ -1,5 +1,5 @@
 import './styles.css';
-import { createIntro } from './intro.js';
+import { createHome } from './home.js';
 import { createMenu } from './menu.js';
 import { createContact } from './contact.js';
 import logo from './images/logo.png';
@@ -83,7 +83,7 @@ function createFooter() {
 }
 
 const content = document.querySelector('#content');
-content.append(createHeader(), createIntro(), createFooter());
+content.append(createHeader(), createHome(), createFooter());
 
 const home = document.querySelector('#home');
 home.classList.add('selected');
@@ -97,7 +97,7 @@ headerLinks.forEach(link => link.addEventListener('click', () => {
   switch (link.id) {
     case 'logo':
     case 'home':
-      loadMain(createIntro());
+      loadMain(createHome());
       home.classList.add('selected');
       break;
     case 'menu':

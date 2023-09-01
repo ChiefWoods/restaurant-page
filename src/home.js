@@ -1,11 +1,11 @@
 import { createSpan } from './index.js';
 
-export function createIntro() {
+export function createHome() {
   const main = document.createElement('main');
-  main.classList.add('intro');
+  main.classList.add('home');
 
   const section = document.createElement('section');
-  section.classList.add('container-intro');
+  section.classList.add('container-home');
 
   const blockquote = document.createElement('blockquote');
   blockquote.textContent = '"QUACK QUACK QUACK QUACK QUACK QUACK QUACK"';
