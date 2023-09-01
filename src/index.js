@@ -5,39 +5,33 @@ import { createContact } from './contact.js';
 import logo from './images/logo.png';
 import github from './icons/github.svg';
 
-export function createSpan(text) {
-  const span = document.createElement('span');
-  span.innerHTML = text;
+export function createText(element, className, content) {
+  const text = document.createElement(element);
+  text.classList.add(...className);
+  text.textContent = content;
 
-  return span;
+  return text;
 }
 
-export function createImg(src, alt) {
-  const img = new Image();
+export function createImg(src, className, alt) {
+  const img = document.createElement('img');
   img.src = src;
+  img.classList.add(...className);
   img.alt = alt;
 
   return img;
 }
 
-function removeMain() {
-  const main = document.querySelector('main');
-  main.remove();
-}
-
 function loadMain(main) {
-  removeMain();
-
-  const content = document.querySelector('#content');
-  const footer = document.querySelector('footer');
-  content.insertBefore(main, footer);
+  document.querySelector('main').replaceWith(main);
 }
 
 function createHeader() {
   const header = document.createElement('header');
-  const headerLogo = createImg(logo, 'Gourmet BBQ Grill');
-  headerLogo.className = 'header-link';
+
+  const headerLogo = createImg(logo, ['header-link'], 'Gourmet BBQ Grill');
   headerLogo.id = 'logo';
+
   header.append(headerLogo, createNav());
 
   return header;
@@ -48,14 +42,13 @@ function createNav() {
   const ul = document.createElement('ul');
 
   for (const i of ['HOME', 'MENU', 'CONTACT']) {
-    const li = document.createElement('li');
-    li.className = 'header-link';
+    const li = createText('li', ['header-link'], i);
     li.id = `${i.toLowerCase()}`;
-    li.textContent = i;
-    ul.appendChild(li);
+
+    ul.append(li);
   }
 
-  nav.appendChild(ul);
+  nav.append(ul);
 
   return nav;
 }
@@ -63,20 +56,16 @@ function createNav() {
 function createFooter() {
   const footer = document.createElement('footer');
 
-  const span = document.createElement('span');
-  span.classList.add('made-by');
-  span.textContent = `Copyright @ ${new Date().getFullYear()} ChiefWoods`;
+  const span = createText('span', ['made-by'], `Copyright @ ${new Date().getFullYear()} ChiefWoods`);
 
   const a = document.createElement('a');
   a.classList.add('github-link');
   a.href = 'https://github.com/ChiefWoods/restaurant-page';
   a.target = '_blank';
 
-  const img = createImg(github, 'GitHub');
-  img.classList.add('github-icon');
+  const img = createImg(github, ['github-icon'], 'GitHub');
 
-  a.appendChild(img);
-
+  a.append(img);
   footer.append(span, a);
 
   return footer;
@@ -91,9 +80,8 @@ home.classList.add('selected');
 const headerLinks = document.querySelectorAll('.header-link');
 
 headerLinks.forEach(link => link.addEventListener('click', () => {
-  headerLinks.forEach(link => {
-    link.classList.remove('selected');
-  })
+  document.querySelector('.selected').classList.remove('selected');
+  
   switch (link.id) {
     case 'logo':
     case 'home':

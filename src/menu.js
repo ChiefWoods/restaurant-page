@@ -1,4 +1,4 @@
-import { createImg } from './index.js';
+import { createImg, createText } from './index.js';
 
 const appetizersImages = importAll(require.context('./images/appetizers', false, /\.(png|jpe?g|svg)$/));
 const meatsImages = importAll(require.context('./images/meats', false, /\.(png|jpe?g|svg)$/));
@@ -44,10 +44,10 @@ export function createMenu() {
   const groupArr = ['APPETIZERS', 'MEATS', 'SIDES', 'DESSERTS', 'DRINKS'];
 
   for (const group of groupArr) {
-    section.appendChild(createMenuGroup(group));
+    section.append(createMenuGroup(group));
   }
 
-  main.appendChild(section);
+  main.append(section);
 
   return main;
 }
@@ -81,14 +81,12 @@ function createMenuGroup(title) {
   const div = document.createElement('div');
   div.classList.add('menu-group');
 
-  const h1 = document.createElement('h1');
-  h1.textContent = title;
+  const h1 = createText('h1', '', title);
 
   const ul = document.createElement('ul');
   ul.classList.add('menu-list');
 
   ul.append(...itemArr);
-
   div.append(h1, ul);
 
   return div;
@@ -97,19 +95,15 @@ function createMenuGroup(title) {
 function createMenuItem(src, name, desc) {
   const li = document.createElement('li');
 
-  const img = createImg(src, name);
+  const img = createImg(src, '', name);
 
   const div = document.createElement('div');
   div.classList.add('item-text');
 
-  const h2 = document.createElement('h2');
-  h2.textContent = name;
-
-  const p = document.createElement('p');
-  p.textContent = desc;
-
-  div.append(h2, p);
-
+  div.append(
+    createText('h2', '', name),
+    createText('p', '', desc)
+  );
   li.append(img, div);
 
   return li;
