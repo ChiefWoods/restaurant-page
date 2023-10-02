@@ -7,7 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
-    "start": "webpack serve --open"
+    "start": "webpack serve --open",
+    "push": "git subtree push --prefix dist origin gh-pages"
   },
   "keywords": [],
   "author": "ChiefWoods",
@@ -15,14 +16,19 @@
   "devDependencies": {
     "css-loader": "^6.7.3",
     "eslint": "^8.38.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.2",
     "webpack": "^5.76.3",
-    "webpack-cli": "^5.0.1",
+    "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.13.3"
+  },
+  "dependencies": {
+    "papaparse": "^5.4.1"
   }
 }
