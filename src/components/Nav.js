@@ -35,18 +35,22 @@ export const Nav = (() => {
         case 'home':
           navId = 'home';
           main = Home.createHome();
+          document.querySelector('main').replaceWith(main);
           break;
         case 'menu':
           navId = 'menu';
-          main = Menu.createMenu();
+          Menu.then(menu => {
+            main = menu.createMenu();
+            document.querySelector('main').replaceWith(main);
+          });
           break;
         case 'contact':
           navId = 'contact';
           main = Contact.createContact();
+          document.querySelector('main').replaceWith(main);
       }
 
       document.querySelector(`#${navId}`).classList.add('selected');
-      document.querySelector('main').replaceWith(main);
       Utility.changeDocumentTitle(navId.charAt(0).toUpperCase() + navId.slice(1));
     })
   }

@@ -1,14 +1,14 @@
 import { Utility } from './Utility.js';
 import Papa from 'papaparse';
 
-export const Menu = (() => {
-  const images = require.context('../images', true, /\.png$/);
-  const data = require.context('../data', true, /\.csv$/);
+export const Menu = (async () => {
+  const images = importImages(require.context('../images', true, /\.png$/));
+  const data = await importData(require.context('../data', true, /\.csv$/));
   const menuItems = importMenuItems(images, data);
 
   const createMenu = () => {
     const main = Utility.createText('main', ['container-menu']);
-
+    
     const menuGroupArr = Object.keys(menuItems)
       .map(group => createMenuGroup(group));
 
@@ -25,7 +25,7 @@ export const Menu = (() => {
     const itemArr = Object.keys(menuItems[group])
       .map(item => createMenuItem(
         menuItems[group][item].src,
-        item,
+        menuItems[group][item].name,
         menuItems[group][item].desc)
       );
 
@@ -50,7 +50,7 @@ export const Menu = (() => {
     return li;
   }
 
-  const readCSVFile = file => {
+  function readCSVFile(file) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
 
@@ -67,11 +67,11 @@ export const Menu = (() => {
     });
   }
 
-  const extractName = item => {
+  function extractName(item) {
     return item.match(/\/([^/]+)\.[^.]+$/)[1];
   }
 
-  const formatName = item => {
+  function formatName(item) {
     return item.replace(/ /g, '_').toLowerCase();
   }
 
@@ -91,25 +91,41 @@ export const Menu = (() => {
     return images;
   }
 
-  function importMenuItems(images, data) {
-    const menuItems = {};
+  async function importData(r) {
+    const data = {};
 
-    data.keys().forEach(async (group) => {
+    await Promise.all(r.keys().map(async (group) => {
       const parent = group.split('/')[1].split('.')[0];
-
-      menuItems[parent] = {};
-
       const csvResponse = await fetch(`data/${parent}.csv`);
       const csvBlob = await csvResponse.blob();
       const csvText = await readCSVFile(csvBlob);
       const csvData = Papa.parse(csvText, { header: true }).data;
-      const importedImages = importImages(images);
+
+      data[parent] = [];
 
       csvData.forEach(row => {
-        menuItems[parent][row.Name] = {
-          src: importedImages[parent][formatName(row.Name)],
+        data[parent].push({
+          name: row.Name,
           desc: row.Description
-        };
+        });
+      });
+    }));
+
+    return data;
+  }
+
+  function importMenuItems(images, data) {
+    const menuItems = {};
+
+    Object.keys(data).forEach(group => {
+      menuItems[group] = [];
+
+      data[group].forEach(row => {
+        menuItems[group].push({
+          src: images[group][formatName(row.name)],
+          name: row.name,
+          desc: row.desc
+        });
       });
     });
 
