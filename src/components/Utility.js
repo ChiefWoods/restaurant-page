@@ -11,6 +11,8 @@ export const Utility = (() => {
       Home.createHome(),
       Footer.createFooter()
     );
+
+    changeDocumentTitle('Home');
   }
 
   const createText = (element, className, content = '') => {
@@ -38,9 +40,14 @@ export const Utility = (() => {
     document.head.appendChild(link);
   }
 
+  const changeDocumentTitle = title => {
+    document.title = `${title} - Restaurant Page`;
+  }
+
   return {
     initialize,
     createText,
-    createImg
+    createImg,
+    changeDocumentTitle
   }
 })();

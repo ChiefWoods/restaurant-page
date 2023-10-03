@@ -27,25 +27,28 @@ export const Nav = (() => {
     ele.addEventListener('click', e => {
       document.querySelector('.selected').classList.remove('selected');
 
+      let navId = null;
+      let main = null;
+
       switch (e.target.id) {
         case 'logo':
         case 'home':
-          document.querySelector('#home').classList.add('selected');
-          replaceMain(Home.createHome());
+          navId = 'home';
+          main = Home.createHome();
           break;
         case 'menu':
-          document.querySelector('#menu').classList.add('selected');
-          replaceMain(Menu.createMenu());
+          navId = 'menu';
+          main = Menu.createMenu();
           break;
         case 'contact':
-          document.querySelector('#contact').classList.add('selected');
-          replaceMain(Contact.createContact());
+          navId = 'contact';
+          main = Contact.createContact();
       }
-    })
-  }
 
-  const replaceMain = main => {
-    document.querySelector('main').replaceWith(main);
+      document.querySelector(`#${navId}`).classList.add('selected');
+      document.querySelector('main').replaceWith(main);
+      Utility.changeDocumentTitle(navId.charAt(0).toUpperCase() + navId.slice(1));
+    })
   }
 
   return {
