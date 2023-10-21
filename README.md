@@ -1,3 +1,72 @@
 # Restaurant Page
 
-Restaurant website for The Odin Project
+![Landing Screenshot](src/images/landing_screenshot.png)
+
+Restaurant website for [The Odin Project](https://www.theodinproject.com/).
+
+[Live Website](https://chiefwoods.github.io/restaurant-page/)  
+
+[Source Repository](https://github.com/ChiefWoods/restaurant-page)
+
+## Features
+
+- Display restaurant information
+- Generate menu dynamically from CSV files
+
+## Built With
+
+### Tools and Languages
+
+- [![HTML5](https://img.shields.io/badge/HTML5-grey?style=for-the-badge&logo=html5)](https://html5.org/)
+- [![CSS3](https://img.shields.io/badge/CSS3-306AF1?style=for-the-badge&logo=css3)](https://www.w3.org/Style/CSS/Overview.en.html)
+- [![JavaScript](https://img.shields.io/badge/Javascript-1B1E21?style=for-the-badge&logo=javascript)](https://js.org/index.html)
+- [![Node.js](https://img.shields.io/badge/Node.js-233056?style=for-the-badge&logo=nodedotjs)](https://nodejs.org/en)
+- [![Webpack](https://img.shields.io/badge/webpack-2B3A42?style=for-the-badge&logo=webpack)](https://webpack.js.org/)
+- [![Prettier](https://img.shields.io/badge/prettier-EA5E5E?style=for-the-badge&logo=prettier)](https://prettier.io/)
+
+### Libraries
+
+- [Papa Parse](https://www.papaparse.com/)
+
+## Getting Started
+
+### Prerequisites
+
+Update your npm package to the latest version.
+
+```
+npm install npm@latest -g
+```
+
+### Setup
+
+1. Clone the repository
+```
+git clone https://github.com/ChiefWoods/restaurant-page.git
+```
+2. Install all dependencies
+```
+npm install
+```
+
+## Issues
+
+View the [open issues](https://github.com/ChiefWoods/restaurant-page/issues) for a full list of proposed features and known bugs.
+
+## Acknowledgements
+
+### Resources
+
+- [Shields.io](https://shields.io/)
+- [Google Fonts](https://fonts.google.com/)
+- [DaFont](https://www.dafont.com/)
+- [Pictogrammers](https://pictogrammers.com/)
+- [Restaurant City Wiki](https://restaurantcity.fandom.com/wiki/Restaurant_City_Wiki)
+
+### Hosting
+
+- [GitHub Pages](https://pages.github.com/)
+
+## Contact
+
+[chii.yuen@hotmail.com](mailto:chii.yuen@hotmail.com)
