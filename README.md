@@ -20,7 +20,6 @@ Restaurant website for [The Odin Project](https://www.theodinproject.com/).
 - [![HTML5](https://img.shields.io/badge/HTML5-grey?style=for-the-badge&logo=html5)](https://html5.org/)
 - [![CSS3](https://img.shields.io/badge/CSS3-306AF1?style=for-the-badge&logo=css3)](https://www.w3.org/Style/CSS/Overview.en.html)
 - [![JavaScript](https://img.shields.io/badge/Javascript-1B1E21?style=for-the-badge&logo=javascript)](https://js.org/index.html)
-- [![Node.js](https://img.shields.io/badge/Node.js-233056?style=for-the-badge&logo=nodedotjs)](https://nodejs.org/en)
 - [![Webpack](https://img.shields.io/badge/webpack-2B3A42?style=for-the-badge&logo=webpack)](https://webpack.js.org/)
 - [![Prettier](https://img.shields.io/badge/prettier-EA5E5E?style=for-the-badge&logo=prettier)](https://prettier.io/)
 
@@ -47,6 +46,10 @@ git clone https://github.com/ChiefWoods/restaurant-page.git
 2. Install all dependencies
 ```
 npm install
+```
+3. Bundle code
+```
+npx webpack
 ```
 
 ## Issues
