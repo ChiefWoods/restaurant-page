@@ -4,12 +4,42 @@
         "es2021": true
     },
     "extends": [
-        "standard",
+        "eslint:recommended",
         "prettier"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "rules": {}
+    "ignorePatterns": [
+        "**/*.config.js",
+        "**/*.json"
+    ],
+    "rules": {
+        "indent": [
+            "warn",
+            2,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "quotes": [
+            "warn",
+            "double",
+            {
+                "avoidEscape": true,
+                "allowTemplateLiterals": true
+            }
+        ],
+        "semi": [
+            "warn",
+            "always"
+        ],
+        "no-unused-vars": [
+            "warn",
+            {
+                "argsIgnorePattern": "_"
+            }
+        ]
+    }
 }
