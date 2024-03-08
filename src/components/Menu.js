@@ -1,136 +1,197 @@
-import { Utility } from './Utility.js';
-import Papa from 'papaparse';
+import Utility from "./Utility.js";
+import Papa from "papaparse";
 
-export const Menu = (async () => {
-  const images = importImages(require.context('../images', true, /\.png$/));
-  const data = await importData(require.context('../data', true, /\.csv$/));
+export default (async () => {
+  const images = importImages(
+    import.meta.webpackContext("../images", {
+      recursive: true,
+      regExp: /\.png$/,
+    }),
+  );
+
+  const data = await importData(
+    import.meta.webpackContext("../data", {
+      recursive: true,
+      regExp: /\.csv$/,
+    }),
+  );
+
   const menuItems = importMenuItems(images, data);
 
+  /**
+   * Creates the menu page.
+   *
+   * @returns {HTMLElement} The menu page.
+   */
   const createMenu = () => {
-    const main = Utility.createText('main', ['container-menu']);
-    
-    const menuGroupArr = Object.keys(menuItems)
-      .map(group => createMenuGroup(group));
+    const main = document.createElement("main");
+    const section = Utility.createText("section", ["container-menu"]);
 
-    main.append(...menuGroupArr);
+    section.append(...Object.keys(menuItems).map(createMenuGroup));
+
+    main.append(section);
 
     return main;
-  }
+  };
 
-  const createMenuGroup = group => {
-    const div = Utility.createText('div', ['menu-group']);
-    const h1 = Utility.createText('h1', [], group.toUpperCase());
-    const ul = Utility.createText('ul', ['menu-list']);
+  /**
+   * Creates the menu group.
+   *
+   * @param {string} group - The group to create.
+   * @returns {HTMLElement} The menu group.
+   */
+  const createMenuGroup = (group) => {
+    const div = Utility.createText("div", ["menu-group"]);
+    const ul = Utility.createText("ul", ["menu-list"]);
 
-    const itemArr = Object.keys(menuItems[group])
-      .map(item => createMenuItem(
+    const itemArr = Object.keys(menuItems[group]).map((item) =>
+      createMenuItem(
         menuItems[group][item].src,
         menuItems[group][item].name,
-        menuItems[group][item].desc)
-      );
-
-    ul.append(...itemArr);
-    div.append(h1, ul);
-
-    return div;
-  }
-
-  const createMenuItem = (src, name, desc) => {
-    const li = document.createElement('li');
-    const img = Utility.createImg(src, [], name);
-    const div = Utility.createText('div', ['item-text']);
-
-    div.append(
-      Utility.createText('h2', [], name),
-      Utility.createText('p', [], desc)
+        menuItems[group][item].desc,
+      ),
     );
 
-    li.append(img, div);
+    ul.append(...itemArr);
+
+    div.append(Utility.createText("h2", ["title"], group.toUpperCase()), ul);
+
+    return div;
+  };
+
+  /**
+   * Creates a menu item.
+   *
+   * @param {string} src - The source of the menu item image.
+   * @param {string} name - The name of the menu item.
+   * @param {string} desc - The description of the menu item.
+   * @returns {HTMLElement} The menu item.
+   */
+  const createMenuItem = (src, name, desc) => {
+    const li = document.createElement("li");
+    const hgroup = document.createElement("hgroup");
+
+    hgroup.append(
+      Utility.createText("h3", ["item-name"], name),
+      Utility.createText("p", ["item-desc"], desc),
+    );
+
+    li.append(Utility.createImg(src, [], name), hgroup);
 
     return li;
-  }
+  };
 
-  function readCSVFile(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-
-      reader.onload = (event) => {
-        const csvText = event.target.result;
-        resolve(csvText);
-      };
-
-      reader.onerror = (event) => {
-        reject(event.error);
-      };
-
-      reader.readAsText(file);
-    });
-  }
-
-  function extractName(item) {
-    return item.match(/\/([^/]+)\.[^.]+$/)[1];
-  }
-
-  function formatName(item) {
-    return item.replace(/ /g, '_').toLowerCase();
-  }
-
+  /**
+   * Imports all images from the specified directory.
+   *
+   * @param {Function} r - The webpack context function.
+   * @returns {Object} The imported images.
+   */
   function importImages(r) {
     const images = {};
 
-    r.keys().forEach(item => {
-      const parent = item.split('/')[1];
-      images[parent] = {};
-    });
+    r.keys().forEach((item) => {
+      const parent = item.split("/")[1];
 
-    r.keys().forEach(item => {
-      const parent = item.split('/')[1];
-      images[parent][extractName(item)] = r(item);
+      images[parent] = {
+        ...images[parent],
+        [extractName(item)]: r(item),
+      };
     });
 
     return images;
   }
 
+  /**
+   * Imports all data from the specified directory.
+   *
+   * @param {Function} r - The webpack context function.
+   * @returns {Object} The imported data.
+   */
   async function importData(r) {
     const data = {};
+    const sequence = ["appetizers", "sides", "meats", "desserts", "drinks"];
 
-    await Promise.all(r.keys().map(async (group) => {
-      const parent = group.split('/')[1].split('.')[0];
-      const csvResponse = await fetch(`data/${parent}.csv`);
-      const csvBlob = await csvResponse.blob();
-      const csvText = await readCSVFile(csvBlob);
-      const csvData = Papa.parse(csvText, { header: true }).data;
+    await Promise.all(
+      sequence
+        .map((group) => {
+          return r.keys().find((csv) => csv.match(group));
+        })
+        .map((path) => {
+          const parent = path.split("/")[1].split(".")[0];
 
-      data[parent] = [];
-
-      csvData.forEach(row => {
-        data[parent].push({
-          name: row.Name,
-          desc: row.Description
-        });
-      });
-    }));
+          return fetch(r(path).default)
+            .then((response) => response.blob())
+            .then((blob) => readCSVFile(blob))
+            .then((csvText) => Papa.parse(csvText, { header: true }).data)
+            .then((csvData) => {
+              data[parent] = csvData.map(({ Name, Description }) => ({
+                name: Name,
+                desc: Description,
+              }));
+            });
+        }),
+    );
 
     return data;
   }
 
+  /**
+   * Imports all menu items from the specified images and data.
+   *
+   * @param {Object} images - The imported images.
+   * @param {Object} data - The imported data.
+   * @returns {Object} The imported menu items.
+   */
   function importMenuItems(images, data) {
     const menuItems = {};
 
-    Object.keys(data).forEach(group => {
-      menuItems[group] = [];
-
-      data[group].forEach(row => {
-        menuItems[group].push({
-          src: images[group][formatName(row.name)],
-          name: row.name,
-          desc: row.desc
-        });
-      });
+    Object.keys(data).forEach((group) => {
+      menuItems[group] = data[group].map(({ name, desc }) => ({
+        src: images[group][formatName(name)],
+        name,
+        desc,
+      }));
     });
 
     return menuItems;
   }
 
-  return { createMenu }
+  /**
+   * Reads the CSV file.
+   *
+   * @param {Blob} file - The CSV file to read.
+   * @returns {Promise} The CSV file text.
+   */
+  function readCSVFile(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = (e) => resolve(e.target.result);
+      reader.onerror = (e) => reject(e.error);
+      reader.readAsText(file);
+    });
+  }
+
+  /**
+   * Extracts the name from the item.
+   *
+   * @param {string} item - The item to extract the name from.
+   * @returns {string} The extracted name.
+   */
+  function extractName(item) {
+    return item.match(/\/([^/]+)\.[^.]+$/)[1];
+  }
+
+  /**
+   * Formats the name of the item by replacing spaces with underscores and converting to lowercase.
+   *
+   * @param {string} item - The item to format the name.
+   * @returns {string} The formatted name.
+   */
+  function formatName(item) {
+    return item.replace(/ /g, "_").toLowerCase();
+  }
+
+  return { createMenu };
 })();

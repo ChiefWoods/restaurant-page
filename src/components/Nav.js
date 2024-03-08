@@ -1,62 +1,90 @@
-import { Utility } from './Utility.js';
-import { Home } from './Home.js';
-import { Menu } from './Menu.js';
-import { Contact } from './Contact.js';
+import Utility from "./Utility.js";
+import close from "../icons/close.svg";
 
-export const Nav = (() => {
-  const createNav = () => {
-    const nav = document.createElement('nav');
-    const ul = document.createElement('ul');
-    const liArr = [];
+export default (() => {
+  let nav;
+  /**
+   * Creates a navigation element.
+   *
+   * @param {string[]} ids - The ids to create the navigation element.
+   * @returns {HTMLElement} The navigation element.
+   */
+  const createNav = (ids) => {
+    nav = document.createElement("nav");
 
-    for (const i of ['home', 'menu', 'contact']) {
-      const li = Utility.createText('li', i === 'home' ? ['header-link', 'selected'] : ['header-link'], `${i.toUpperCase()}`);
-      li.id = i;
-      addNavHandler(li);
+    nav.addEventListener("focusout", (e) => {
+      if (!nav.contains(e.relatedTarget)) {
+        hideNav();
+      }
+    });    
 
-      liArr.push(li);
-    }
+    const closeBtn = Utility.createText("button", ["close-btn", "action-btn"]);
+    closeBtn.append(Utility.createImg(close, ["icon"], "Close"));
+    closeBtn.addEventListener("click", hideNav);
 
-    ul.append(...liArr);
-    nav.append(ul);
+    const ul = document.createElement("ul");
+
+    ul.append(
+      ...ids.map((id) => {
+        const li = document.createElement("li");
+
+        const link = Utility.createText(
+          "a",
+          ["nav-link", `${id === "home" ? "selected" : ""}`],
+          `${id.toUpperCase()}`,
+        );
+        link.dataset.navId = id;
+        link.href = "#";
+
+        li.append(link);
+
+        return li;
+      }),
+    );
+
+    nav.append(closeBtn, ul);
 
     return nav;
-  }
+  };
 
-  const addNavHandler = ele => {
-    ele.addEventListener('click', e => {
-      document.querySelector('.selected').classList.remove('selected');
+  /**
+   * Adds navigation handlers to the navigation links.
+   *
+   * @param {object[]} options - The options to add navigation handlers.
+   */
+  const addNavHandlers = (options) => {
+    document.querySelectorAll(".nav-link").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        document.querySelector(".selected").classList.remove("selected");
+        hideNav();
 
-      let navId = null;
-      let main = null;
+        for (const { id, main } of options) {
+          if (id.includes(e.target.dataset.navId)) {
+            const navId = id[0];
+            document.querySelector("main").replaceWith(main);
+            document
+              .querySelector(`li>a[data-nav-id=${navId}]`)
+              .classList.add("selected");
+            Utility.changeDocumentTitle(
+              navId.charAt(0).toUpperCase() + navId.slice(1),
+            );
+            break;
+          }
+        }
+      });
+    });
+  };
 
-      switch (e.target.id) {
-        case 'logo':
-        case 'home':
-          navId = 'home';
-          main = Home.createHome();
-          document.querySelector('main').replaceWith(main);
-          break;
-        case 'menu':
-          navId = 'menu';
-          Menu.then(menu => {
-            main = menu.createMenu();
-            document.querySelector('main').replaceWith(main);
-          });
-          break;
-        case 'contact':
-          navId = 'contact';
-          main = Contact.createContact();
-          document.querySelector('main').replaceWith(main);
-      }
-
-      document.querySelector(`#${navId}`).classList.add('selected');
-      Utility.changeDocumentTitle(navId.charAt(0).toUpperCase() + navId.slice(1));
-    })
-  }
+  /**
+   * Hides the navigation element.
+   */
+  const hideNav = () => {
+    nav.classList.remove("active");
+  };
 
   return {
     createNav,
-    addNavHandler
-  }
+    addNavHandlers,
+    hideNav,
+  };
 })();

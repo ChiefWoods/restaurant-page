@@ -1,19 +1,37 @@
-import { Utility } from './Utility.js';
-import { Nav } from './Nav.js';
-import logo from '../images/logo.png';
+import Utility from "./Utility.js";
+import logo from "../images/logo.png";
+import menu from "../icons/menu.svg";
 
-export const Header = (() => {
-  const createHeader = () => {
-    const header = document.createElement('header');
+export default (() => {
+  /**
+   * Create a header element
+   * @param {HTMLElement} nav - The nav element
+   * @returns {HTMLElement} - The header element
+   */
+  const createHeader = (nav) => {
+    const header = document.createElement("header");
 
-    const headerLogo = Utility.createImg(logo, ['header-link'], 'Gourmet BBQ Grill');
-    headerLogo.id = 'logo';
-    Nav.addNavHandler(headerLogo);
+    const logoLink = Utility.createText("a", ["nav-link"]);
+    logoLink.href = "#";
+    logoLink.dataset.navId = "home";
 
-    header.append(headerLogo, Nav.createNav());
+    const headerLogo = Utility.createImg(logo, [], "Gourmet BBQ Grill", "logo");
+
+    logoLink.append(headerLogo);
+
+    const menuBtn = Utility.createText("button", ["menu-btn", "action-btn"]);
+    menuBtn.append(Utility.createImg(menu, ["icon"], "Sidebar"));
+
+    menuBtn.addEventListener("click", () => {
+      nav.classList.add("active");
+    });
+
+    header.append(logoLink, menuBtn, nav);
 
     return header;
-  }
+  };
 
-  return { createHeader }
+  return {
+    createHeader,
+  };
 })();
