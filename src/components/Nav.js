@@ -1,62 +1,61 @@
-import { Utility } from './Utility.js';
-import { Home } from './Home.js';
-import { Menu } from './Menu.js';
-import { Contact } from './Contact.js';
+import Utility from "./Utility.js";
+import close from "../icons/close.svg";
 
-export const Nav = (() => {
-  const createNav = () => {
-    const nav = document.createElement('nav');
-    const ul = document.createElement('ul');
-    const liArr = [];
+export default (() => {
+  const createNav = (ids) => {
+    const nav = document.createElement("nav");
 
-    for (const i of ['home', 'menu', 'contact']) {
-      const li = Utility.createText('li', i === 'home' ? ['header-link', 'selected'] : ['header-link'], `${i.toUpperCase()}`);
-      li.id = i;
-      addNavHandler(li);
+    const closeBtn = Utility.createText("button", ["close-btn", "action-btn"]);
+    const closeIcon = Utility.createImg(close, ["icon"], "Close");
+    closeBtn.append(closeIcon);
 
-      liArr.push(li);
-    }
+    closeBtn.addEventListener("click", () => {
+      document.querySelector("nav").classList.remove("active");
+    });
 
-    ul.append(...liArr);
-    nav.append(ul);
+    const ul = document.createElement("ul");
+
+    const navLinks = ids.map((id) => {
+      const li = Utility.createText(
+        "li",
+        id === "home" ? ["nav-link", "selected"] : ["nav-link"],
+        `${id.toUpperCase()}`,
+      );
+      li.dataset.navId = id;
+
+      return li;
+    });
+
+    ul.append(...navLinks);
+    nav.append(closeBtn, ul);
 
     return nav;
-  }
+  };
 
-  const addNavHandler = ele => {
-    ele.addEventListener('click', e => {
-      document.querySelector('.selected').classList.remove('selected');
+  const addNavHandlers = (options) => {
+    document.querySelectorAll(".nav-link").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        document.querySelector(".selected").classList.remove("selected");
 
-      let navId = null;
-      let main = null;
-
-      switch (e.target.id) {
-        case 'logo':
-        case 'home':
-          navId = 'home';
-          main = Home.createHome();
-          document.querySelector('main').replaceWith(main);
-          break;
-        case 'menu':
-          navId = 'menu';
-          Menu.then(menu => {
-            main = menu.createMenu();
-            document.querySelector('main').replaceWith(main);
-          });
-          break;
-        case 'contact':
-          navId = 'contact';
-          main = Contact.createContact();
-          document.querySelector('main').replaceWith(main);
-      }
-
-      document.querySelector(`#${navId}`).classList.add('selected');
-      Utility.changeDocumentTitle(navId.charAt(0).toUpperCase() + navId.slice(1));
-    })
-  }
+        for (const { id, main } of options) {
+          if (id.includes(e.target.dataset.navId)) {
+            const navId = id[0];
+            document.querySelector("main").replaceWith(main);
+            document
+              .querySelector(`li[data-nav-id=${navId}]`)
+              .classList.add("selected");
+            Utility.changeDocumentTitle(
+              navId.charAt(0).toUpperCase() + navId.slice(1),
+            );
+            break;
+          }
+        }
+      });
+    });
+  };
 
   return {
     createNav,
-    addNavHandler
-  }
+    addNavHandlers,
+  };
 })();

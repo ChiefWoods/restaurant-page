@@ -1,19 +1,33 @@
-import { Utility } from './Utility.js';
-import { Nav } from './Nav.js';
-import logo from '../images/logo.png';
+import Utility from "./Utility.js";
+import logo from "../images/logo.png";
+import menu from "../icons/menu.svg";
 
-export const Header = (() => {
-  const createHeader = () => {
-    const header = document.createElement('header');
+export default (() => {
+  const createHeader = (nav) => {
+    const header = document.createElement("header");
 
-    const headerLogo = Utility.createImg(logo, ['header-link'], 'Gourmet BBQ Grill');
-    headerLogo.id = 'logo';
-    Nav.addNavHandler(headerLogo);
+    const headerLogo = Utility.createImg(
+      logo,
+      ["nav-link"],
+      "Gourmet BBQ Grill",
+      "logo",
+    );
+    headerLogo.dataset.navId = "home";
 
-    header.append(headerLogo, Nav.createNav());
+    const menuBtn = Utility.createText("button", ["menu-btn", "action-btn"]);
+    const menuIcon = Utility.createImg(menu, ["icon"], "Dropdown");
+    menuBtn.append(menuIcon);
+
+    menuBtn.addEventListener("click", () => {
+      document.querySelector("nav").classList.add("active");
+    });
+
+    header.append(headerLogo, nav, menuBtn);
 
     return header;
-  }
+  };
 
-  return { createHeader }
+  return {
+    createHeader,
+  };
 })();
