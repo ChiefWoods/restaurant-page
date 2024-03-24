@@ -11,7 +11,7 @@ Restaurant website for [The Odin Project](https://www.theodinproject.com/).
 ## Features
 
 - Display restaurant information
-- Generate menu dynamically from CSV files
+- Dynamically generate menu from CSV files
 
 ## Built With
 
@@ -20,8 +20,13 @@ Restaurant website for [The Odin Project](https://www.theodinproject.com/).
 - [![HTML5](https://img.shields.io/badge/HTML5-white?style=for-the-badge&logo=html5&logoColor=e65127)](https://html5.org/)
 - [![CSS3](https://img.shields.io/badge/CSS3-white?style=for-the-badge&logo=css3&logoColor=306AF1)](https://www.w3.org/Style/CSS/Overview.en.html)
 - [![JavaScript](https://img.shields.io/badge/Javascript-383936?style=for-the-badge&logo=javascript)](https://js.org/index.html)
+
+### Bundlers, Linters & Formatters
+
 - [![Webpack](https://img.shields.io/badge/webpack-2B3A42?style=for-the-badge&logo=webpack)](https://webpack.js.org/)
+- [![esbuild](https://img.shields.io/badge/esbuild-191919?style=for-the-badge&logo=esbuild)](https://esbuild.github.io/)
 - [![ESLint](https://img.shields.io/badge/eslint-4b32c3?style=for-the-badge&logo=eslint)](https://eslint.org/)
+- [![Prettier](https://img.shields.io/badge/prettier-1a2b34?style=for-the-badge&logo=prettier)](https://prettier.io/)
 
 ### Libraries
 
@@ -50,9 +55,13 @@ git clone https://github.com/ChiefWoods/restaurant-page.git
 ```
 npm install
 ```
-3. Bundle code
+3. Start development server
 ```
-npx webpack
+npm run start
+```
+4. Build project
+```
+npm run build
 ```
 
 ## Issues
