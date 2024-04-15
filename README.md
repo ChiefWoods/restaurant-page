@@ -4,7 +4,7 @@
 
 Restaurant website for [The Odin Project](https://www.theodinproject.com/).
 
-[Live Website](https://chiefwoods.github.io/restaurant-page/)  
+[Live Website](https://chiefwoods.github.io/restaurant-page/)
 
 [Source Repository](https://github.com/ChiefWoods/restaurant-page)
 
@@ -41,6 +41,7 @@ Restaurant website for [The Odin Project](https://www.theodinproject.com/).
 ### Prerequisites
 
 Update your npm package to the latest version.
+
 ```
 npm install npm@latest -g
 ```
@@ -48,18 +49,25 @@ npm install npm@latest -g
 ### Setup
 
 1. Clone the repository
+
 ```
 git clone https://github.com/ChiefWoods/restaurant-page.git
 ```
+
 2. Install all dependencies
+
 ```
 npm install
 ```
+
 3. Start development server
+
 ```
 npm run start
 ```
+
 4. Build project
+
 ```
 npm run build
 ```

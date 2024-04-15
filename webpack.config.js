@@ -1,6 +1,6 @@
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { EsbuildPlugin } from 'esbuild-loader';
-import esbuild from 'esbuild';
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import { EsbuildPlugin } from "esbuild-loader";
+import esbuild from "esbuild";
 
 export default {
   mode: "development",
@@ -15,15 +15,15 @@ export default {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Restaurant Page',
-      template: 'src/template.html',
-      favicon: 'src/icons/bbq_sauce.png',
+      title: "Restaurant Page",
+      template: "src/template.html",
+      favicon: "src/icons/bbq_sauce.png",
     }),
   ],
   output: {
-    publicPath: 'auto',
-    filename: 'main.[contenthash].js',
-    assetModuleFilename: '[path]/[name].[contenthash].[ext]',
+    publicPath: "auto",
+    filename: "main.[contenthash].js",
+    assetModuleFilename: "[path]/[name].[contenthash].[ext]",
     clean: true,
   },
   module: {
@@ -31,10 +31,10 @@ export default {
       {
         test: /\.css$/i,
         use: [
-          'style-loader',
-          'css-loader',
+          "style-loader",
+          "css-loader",
           {
-            loader: 'esbuild-loader',
+            loader: "esbuild-loader",
             options: {
               minify: true,
               implementation: esbuild,
@@ -44,28 +44,28 @@ export default {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
       },
       {
         test: /\.(csv|tsv)$/i,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: '[path]/[name].[contenthash].[ext]',
+              name: "[path]/[name].[contenthash].[ext]",
             },
           },
         ],
       },
       {
         test: /.js$/,
-        loader: 'esbuild-loader',
+        loader: "esbuild-loader",
         options: {
-          target: 'esnext',
+          target: "esnext",
           implementation: esbuild,
         },
       },
@@ -74,11 +74,11 @@ export default {
   optimization: {
     minimizer: [
       new EsbuildPlugin({
-        target: 'esnext',
+        target: "esnext",
         implementation: esbuild,
         css: true,
       }),
     ],
   },
-  stats: 'minimal',
+  stats: "minimal",
 };

@@ -16,7 +16,7 @@ export default (() => {
       if (!nav.contains(e.relatedTarget)) {
         hideNav();
       }
-    });    
+    });
 
     const closeBtn = Utility.createText("button", ["close-btn", "action-btn"]);
     closeBtn.append(Utility.createImg(close, ["icon"], "Close"));
