@@ -40,36 +40,36 @@ Restaurant website for [The Odin Project](https://www.theodinproject.com/).
 
 ### Prerequisites
 
-Update your npm package to the latest version.
+Update your Bun toolkit to the latest version.
 
-```
-npm install npm@latest -g
+```bash
+bun upgrade
 ```
 
 ### Setup
 
 1. Clone the repository
 
-```
+```bash
 git clone https://github.com/ChiefWoods/restaurant-page.git
 ```
 
 2. Install all dependencies
 
-```
-npm install
+```bash
+bun install
 ```
 
 3. Start development server
 
-```
-npm run start
+```bash
+bash run start
 ```
 
 4. Build project
 
-```
-npm run build
+```bash
+bun run build
 ```
 
 ## Issues
