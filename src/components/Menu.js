@@ -3,14 +3,14 @@ import Papa from "papaparse";
 
 export default (async () => {
   const images = importImages(
-    import.meta.webpackContext("../images", {
+    import.meta.webpackContext("/src/images", {
       recursive: true,
       regExp: /\.png$/,
     }),
   );
 
   const data = await importData(
-    import.meta.webpackContext("../data", {
+    import.meta.webpackContext("/src/data", {
       recursive: true,
       regExp: /\.csv$/,
     }),
@@ -120,7 +120,7 @@ export default (async () => {
         .map((path) => {
           const parent = path.split("/")[1].split(".")[0];
 
-          return fetch(r(path).default)
+          return fetch(r(path))
             .then((response) => response.blob())
             .then((blob) => readCSVFile(blob))
             .then((csvText) => Papa.parse(csvText, { header: true }).data)
