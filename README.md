@@ -72,6 +72,12 @@ bash run start
 bun run build
 ```
 
+5. Preview build
+
+```bash
+bun run preview
+```
+
 ## Issues
 
 View the [open issues](https://github.com/ChiefWoods/restaurant-page/issues) for a full list of proposed features and known bugs.
