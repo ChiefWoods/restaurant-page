@@ -16,8 +16,8 @@ export default {
   plugins: [
     new HtmlWebpackPlugin({
       title: "Restaurant Page",
-      template: "src/template.html",
-      favicon: "src/icons/bbq_sauce.png",
+      template: "./src/template.html",
+      favicon: "./src/favicon.png",
     }),
   ],
   output: {
